@@ -1,0 +1,47 @@
+{
+  "name": "grog",
+  "version": "0.0.0",
+  "description": "",
+  "main": "bin/www",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node bin/www",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive -R spec -r should"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GraanJonlo/grog.git"
+  },
+  "author": "Andy Grant <andy.a.grant@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GraanJonlo/grog/issues"
+  },
+  "homepage": "https://github.com/GraanJonlo/grog#readme",
+  "devDependencies": {
+    "istanbul": "^0.4.1",
+    "mocha": "^2.3.4",
+    "should": "^8.0.2",
+    "supertest-as-promised": "^2.0.2",
+    "zombie": "^4.2.1"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^3.0.1",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "express-useragent": "^0.2.4",
+    "intravenous": "^0.1.4-beta",
+    "jade": "^1.11.0",
+    "moment": "^2.10.6",
+    "morgan": "^1.6.1",
+    "node-sass-middleware": "^0.9.7",
+    "sanitize-html": "^1.11.2",
+    "seraph": "^0.14.0",
+    "supertest": "^1.1.0"
+  }
+}
