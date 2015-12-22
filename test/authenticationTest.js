@@ -1,9 +1,13 @@
+var container = require('../src/container');
+
 require('should');
 
 describe('Authentication', function() {
   describe('when serializing a user', function() {
+    container.register('neo4j', {});
+
     var user = { username: 'test', displayName: 'Testy McTestTest', password: 'foobar' },
-      sut = require('../src/authentication')(),
+      sut = container.get('authentication'),
       expected = 'test',
       actual;
 
@@ -24,20 +28,23 @@ describe('Authentication', function() {
 
   describe('when deserializing a user that exists', function() {
     var user = { username: 'test', displayName: 'Testy McTestTest', password: 'foobar' },
-      readModel =  {
-        getUser: function(username) {
-          return new Promise(function(resolve, reject) {
-            if (username!==user.username) {
-              reject();
-              return;
-            }
-
-            resolve(user);
-          });
-        }
-      },
-      sut = require('../src/authentication')(readModel),
+      sut,
       actual;
+
+    container.register('neo4j', {
+      getUser: function(username) {
+        return new Promise(function(resolve, reject) {
+          if (username!==user.username) {
+            resolve([]);
+            return;
+          }
+
+          resolve([user]);
+        });
+      }
+    });
+
+    sut = container.get('authentication');
 
     before(function(done) {
       sut.deserializeUser(user.username, function(err, result) {

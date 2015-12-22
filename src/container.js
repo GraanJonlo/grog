@@ -12,4 +12,6 @@ container.register("neo4jConnection", {
 
 container.register('authentication', require('./authentication'));
 
+container.register('readModel', require('./readModel'));
+
 module.exports = container;
