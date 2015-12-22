@@ -37,4 +37,14 @@ describe("smoke tests", function() {
       browser.assert.success();
     });
   });
+
+  describe("browses to sign in page", function() {
+    before(function() {
+      return browser.visit('/signin');
+    });
+
+    it('should be successful', function() {
+      browser.assert.success();
+    });
+  });
 });

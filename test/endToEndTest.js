@@ -39,7 +39,7 @@ describe("end to end tests", function() {
     });
   });
 
-  describe("existing author publishes a post", function() {
+  describe("existing author", function() {
   	var author;
 
     before(function(done) {
@@ -47,16 +47,44 @@ describe("end to end tests", function() {
       .create()
       .then(function(result) {
         author = result;
-        browser.visit('/', done);
+        done();
       }).
       catch(function(err) {
         done(err);
       });
     });
 
-    it('should be successful', function() {
-      browser.assert.success();
+    describe('navigates to signin', function() {
+      before(function(done) {
+        browser.visit('/signin', done);
+      });
+
+      it('should be successful', function() {
+        browser.assert.success();
+      });
+
+      it('should see signin page', function() {
+        browser.assert.text('title', 'Sign In');
+      });
+
+      describe('submits credentials', function() {
+        before(function(done) {
+          browser
+          .fill('username', author.username)
+          .fill('password', author.password)
+          .pressButton('Sign In', done);
+        });
+
+        it('should be successful', function() {
+          browser.assert.success();
+        });
+
+        it('should see home page', function() {
+          browser.assert.text('title', 'Home');
+        });
+      });
     });
+
   	// submit credentials
   	// assert db called with credentials
   	// assert page shows logged in

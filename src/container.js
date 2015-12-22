@@ -10,4 +10,6 @@ container.register("neo4jConnection", {
   pass: pass
 });
 
+container.register('authentication', require('./authentication'));
+
 module.exports = container;
