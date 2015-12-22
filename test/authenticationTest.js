@@ -65,15 +65,18 @@ describe('Authentication', function() {
   });
 
   describe('when deserializing a user that does not exists', function() {
-    var readModel =  {
-        getUser: function(username) {
-          return new Promise(function(resolve, reject) {
-            reject(new Error('User not found'));
-          });
-        }
-      },
-      sut = require('../src/authentication')(readModel),
+    var sut,
       actual;
+
+    container.register('neo4j', {
+      getUser: function(username) {
+        return new Promise(function(resolve, reject) {
+          resolve([]);
+        });
+      }
+    });
+
+    sut = container.get('authentication');
 
     before(function(done) {
       sut.deserializeUser('zgkasdgl', function(err, result) {
