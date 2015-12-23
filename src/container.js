@@ -3,14 +3,16 @@ var container = require('intravenous').create(),
   user = process.env.NEO4J_USER || "neo4j",
   pass = process.env.NEO4J_PASS || "neo4j";
 
-container.register('authentication', require('./authentication'));
-
 container.register("neo4jConnection", {
   server: server,
   user: user,
   pass: pass
 });
 
+container.register('neo4j', require('./neo4j'));
+
 container.register('readModel', require('./readModel'));
+
+container.register('authentication', require('./authentication'));
 
 module.exports = container;

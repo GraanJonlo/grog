@@ -4,8 +4,6 @@ require('should');
 
 describe('Authentication', function() {
   describe('when serializing a user', function() {
-    container.register('neo4j', {});
-
     var user = { username: 'test', displayName: 'Testy McTestTest', password: 'foobar' },
       sut = container.get('authentication'),
       expected = 'test',
