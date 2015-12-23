@@ -85,7 +85,6 @@ describe("end to end tests", function() {
       });
     });
 
-  	// submit credentials
   	// assert db called with credentials
   	// assert page shows logged in
   	// navigate to post editor
@@ -104,22 +103,17 @@ function Author() {
     displayName: 'Testy McTestTest',
     password: 'foobar',
     create: function() {
-      var params = {
-        username: this.username,
-        displayName: this.displayName,
-        password: this.password
-      };
+      var query = "CREATE (p:Person:Author {username: {username}, displayName: {displayName}, password: {password}}) RETURN p",
+        params = {
+          username: this.username,
+          displayName: this.displayName,
+          password: this.password
+        };
 
       return new Promise(function(resolve, reject) {
-        var query = "CREATE (p:Person:Author {username: {username}, displayName: {displayName}, password: {password}})";
-
-        n4j.query(query, params, function(err, result) {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(params);
+        execQuery(query, params)
+        .then(function(result) {
+          resolve(result[0]);
         });
       });
     }
@@ -130,6 +124,10 @@ function tearDownDb() {
   var query = "MATCH (n) DETACH DELETE n",
     params = {};
 
+  return execQuery(query, params);
+}
+
+function execQuery(query, params) {
   return new Promise(function(resolve, reject) {
     n4j.query(query, params, function(err, result) {
       if (err) {
