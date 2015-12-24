@@ -1,4 +1,5 @@
-var container = require('../src/container');
+var bcrypt = require('bcrypt-nodejs'),
+  container = require('../src/container');
 
 require('should');
 
@@ -85,6 +86,110 @@ describe('Authentication', function() {
 
     it('should return an error', function() {
       actual.message.should.equal('User not found');
+    });
+  });
+
+  describe('when login a user with correct password', function() {
+    var user = { username: 'test', displayName: 'Testy McTestTest', password: bcrypt.hashSync('foobar') },
+      sut,
+      actual;
+
+    container.register('neo4j', {
+      getUser: function(username) {
+        return new Promise(function(resolve, reject) {
+          if (username!==user.username) {
+            resolve([]);
+            return;
+          }
+
+          resolve([user]);
+        });
+      }
+    });
+
+    sut = container.get('authentication');
+
+    before(function(done) {
+      sut.login(null, 'test', 'foobar', function(err, result) {
+        if(err) {
+          throw err;
+        }
+
+        actual = result;
+        done();
+      });
+    });
+
+    it('should succeed', function() {
+      actual.should.equal.user;
+    });
+  });
+
+  describe('when login a user with incorrect password', function() {
+    var user = { username: 'test', displayName: 'Testy McTestTest', password: bcrypt.hashSync('foobar') },
+      fakeReq = { flash: function(){} },
+      sut,
+      actual;
+
+    container.register('neo4j', {
+      getUser: function(username) {
+        return new Promise(function(resolve, reject) {
+          if (username!==user.username) {
+            resolve([]);
+            return;
+          }
+
+          resolve([user]);
+        });
+      }
+    });
+
+    sut = container.get('authentication');
+
+    before(function(done) {
+      sut.login(fakeReq, 'test', 'wrong', function(err, result) {
+        if(err) {
+          throw err;
+        }
+
+        actual = result;
+        done();
+      });
+    });
+
+    it('should fail', function() {
+      actual.should.equal.false;
+    });
+  });
+
+  describe('when login a user who does not exist', function() {
+    var fakeReq = { flash: function(){} },
+      sut,
+      actual;
+
+    container.register('neo4j', {
+      getUser: function(username) {
+        return new Promise(function(resolve, reject) {
+          resolve([]);
+        });
+      }
+    });
+
+    sut = container.get('authentication');
+
+    before(function(done) {
+      sut.login(fakeReq, 'test', 'foobar', function(err, result) {
+        if(err) {
+          throw err;
+        }
+
+        actual = result;
+        done();
+      });
+    });
+
+    it('should fail', function() {
+      actual.should.equal.false;
     });
   });
 });
