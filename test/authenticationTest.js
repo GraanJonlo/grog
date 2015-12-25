@@ -126,6 +126,7 @@ describe('Authentication', function() {
   });
 
   describe('when login a user with incorrect password', function() {
+    console.log(bcrypt.hashSync('foobar'));
     var user = { username: 'test', displayName: 'Testy McTestTest', password: bcrypt.hashSync('foobar') },
       fakeReq = { flash: function(){} },
       sut,

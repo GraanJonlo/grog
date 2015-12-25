@@ -1,4 +1,4 @@
-var authentication = function(readModel, isValidPassword) {
+var authentication = function(readModel, credentials) {
 	return {
 		deserializeUser: function(username, cb) {
 			readModel.getUser(username)
@@ -15,7 +15,7 @@ var authentication = function(readModel, isValidPassword) {
 		login: function(req, username, password, cb) {
 			readModel.getUser(username)
 			.then(function(user) {
-				if (!isValidPassword.validate(user, password)) {
+				if (!credentials.validatePassword(user, password)) {
 					return cb(null, false, req.flash('message', 'Invalid Password'));
 				}
 
@@ -28,6 +28,6 @@ var authentication = function(readModel, isValidPassword) {
 	};
 };
 
-authentication.$inject = ['readModel', 'isValidPassword'];
+authentication.$inject = ['readModel', 'credentials'];
 
 module.exports = authentication;

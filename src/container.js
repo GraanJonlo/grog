@@ -13,7 +13,7 @@ container.register('neo4j', require('./neo4j'));
 
 container.register('readModel', require('./readModel'));
 
-container.register('isValidPassword', require('./isValidPassword'));
+container.register('credentials', require('./credentials'));
 
 container.register('authentication', require('./authentication'));
 
