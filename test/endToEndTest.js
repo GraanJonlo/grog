@@ -1,4 +1,5 @@
 var Browser = require('zombie'),
+  bcrypt = require('bcrypt-nodejs'),
   http = require('http'),
   seraph = require('seraph'),
   container = require('../src/container'),
@@ -70,8 +71,8 @@ describe("end to end tests", function() {
       describe('submits credentials', function() {
         before(function(done) {
           browser
-          .fill('username', author.username)
-          .fill('password', author.password)
+          .fill('username', 'test')
+          .fill('password', 'foobar')
           .pressButton('Sign In', done);
         });
 
@@ -107,7 +108,7 @@ function Author() {
         params = {
           username: this.username,
           displayName: this.displayName,
-          password: this.password
+          password: bcrypt.hashSync(this.password)
         };
 
       return new Promise(function(resolve, reject) {

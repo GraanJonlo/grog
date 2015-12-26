@@ -20,7 +20,7 @@ module.exports = function(neo4jConnection) {
       var cypher = "MATCH (p:Person { username: {username} }) RETURN p",
         params = { username: username };
 
-      return query(cypher, params);
+      return this.query(cypher, params);
     }
   };
 };

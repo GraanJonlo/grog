@@ -1,5 +1,6 @@
 var express = require('express'),
   container = require('../container'),
+  passport = container.get('passport'),
   router = express.Router();
 
 router.get('/', function(req, res){
@@ -14,5 +15,7 @@ router.get('/signin', function(req, res) {
     title: 'Signin'
   });
 });
+
+router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/signin' }));
 
 module.exports = router;

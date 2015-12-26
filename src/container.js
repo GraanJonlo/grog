@@ -17,4 +17,6 @@ container.register('credentials', require('./credentials'));
 
 container.register('authentication', require('./authentication'));
 
+container.register('passport', require('./passport'));
+
 module.exports = container;

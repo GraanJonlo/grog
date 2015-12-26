@@ -23,6 +23,7 @@ module.exports = function(neo4j) {
           resolve(users[0]);
         })
         .catch(function(err) {
+          console.log(err);
           reject(err);
         });
       });

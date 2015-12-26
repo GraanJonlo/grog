@@ -12,17 +12,17 @@ var authentication = function(readModel, credentials) {
 		serializeUser: function(user, cb) {
 			cb(null, user.username);
 		},
-		login: function(req, username, password, cb) {
+		login: function(username, password, cb) {
 			readModel.getUser(username)
 			.then(function(user) {
 				if (!credentials.validatePassword(user, password)) {
-					return cb(null, false, req.flash('message', 'Invalid Password'));
+					return cb(null, false);
 				}
 
 				return cb(null, user);
 			})
 			.catch(function(err) {
-				return cb(null, false, req.flash('message', 'User not found.'));  
+				return cb(null, false);  
 			});
 		}
 	};
