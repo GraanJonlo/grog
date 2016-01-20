@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using NUnit.Framework;
+using SimpleInjector;
+using Ui;
 using Ui.Controllers;
 
 namespace SmokeTests
@@ -7,10 +9,19 @@ namespace SmokeTests
     [TestFixture]
     public class HomeControllerSmokeTests
     {
+        private Container _container;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _container = new Container();
+            SimpleInjectorConfig.InitialiseContainerForTest(_container);
+        }
+
         [Test]
         public void CanReachIndex()
         {
-            var sut = new HomeController();
+            var sut = _container.GetInstance<HomeController>();
 
             var result = sut.Index() as ViewResult;
 
@@ -20,7 +31,7 @@ namespace SmokeTests
         [Test]
         public void CanReachAbout()
         {
-            var sut = new HomeController();
+            var sut = _container.GetInstance<HomeController>();
 
             var result = sut.About() as ViewResult;
 
@@ -30,7 +41,7 @@ namespace SmokeTests
         [Test]
         public void CanReachContact()
         {
-            var sut = new HomeController();
+            var sut = _container.GetInstance<HomeController>();
 
             var result = sut.Contact() as ViewResult;
 

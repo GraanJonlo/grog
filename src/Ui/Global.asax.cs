@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 
 namespace Ui
@@ -21,7 +22,9 @@ namespace Ui
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
-            var container = SimpleInjectorConfig.BuildContainer();
+            var container = new Container();
+
+            SimpleInjectorConfig.InitialiseContainer(container);
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
