@@ -1,12 +1,22 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using Akka.Actor;
 
 namespace Ui.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private readonly SystemActors _systemActors;
+
+        public HomeController(SystemActors systemActors)
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            _systemActors = systemActors;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            ViewBag.Message = await _systemActors.QueryProcessor.Ask<string>("", TimeSpan.FromSeconds(1));
 
             return View();
         }

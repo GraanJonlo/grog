@@ -23,9 +23,9 @@ namespace SmokeTests
         {
             var sut = _container.GetInstance<HomeController>();
 
-            var result = sut.Index() as ViewResult;
+            var result = sut.Index().Result as ViewResult;
 
-            Assert.That(result.ViewBag.Message, Is.EqualTo("Modify this template to jump-start your ASP.NET MVC application."));
+            Assert.That(result.ViewBag.Message, Is.EqualTo("Hello world!"));
         }
 
         [Test]
