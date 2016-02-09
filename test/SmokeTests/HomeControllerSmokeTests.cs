@@ -1,51 +1,49 @@
 ﻿using System.Web.Mvc;
-using NUnit.Framework;
 using SimpleInjector;
 using Ui;
 using Ui.Controllers;
+using Xunit;
 
 namespace SmokeTests
 {
-    [TestFixture]
     public class HomeControllerSmokeTests
     {
-        private Container _container;
+        private readonly Container _container;
 
-        [SetUp]
-        public void SetUp()
+        public HomeControllerSmokeTests()
         {
             _container = new Container();
             SimpleInjectorConfig.InitialiseContainerForTest(_container);
         }
 
-        [Test]
+        [Fact]
         public void CanReachIndex()
         {
             var sut = _container.GetInstance<HomeController>();
 
             var result = sut.Index().Result as ViewResult;
 
-            Assert.That(result.ViewBag.Message, Is.EqualTo("Hello world!"));
+            Assert.Equal("Hello world!", result.ViewBag.Message);
         }
 
-        [Test]
+        [Fact]
         public void CanReachAbout()
         {
             var sut = _container.GetInstance<HomeController>();
 
             var result = sut.About() as ViewResult;
 
-            Assert.That(result.ViewBag.Message, Is.EqualTo("Your app description page."));
+            Assert.Equal("Your app description page.", result.ViewBag.Message);
         }
 
-        [Test]
+        [Fact]
         public void CanReachContact()
         {
             var sut = _container.GetInstance<HomeController>();
 
             var result = sut.Contact() as ViewResult;
 
-            Assert.That(result.ViewBag.Message, Is.EqualTo("Your contact page."));
+            Assert.Equal("Your contact page.", result.ViewBag.Message);
         }
     }
 }
