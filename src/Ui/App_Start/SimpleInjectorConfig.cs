@@ -43,8 +43,8 @@ namespace Ui
             //container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
 
             var actorSystem = ActorSystem.Create("grog");
-            var queryProcessor = actorSystem.ActorOf(Props.Create(() => new QueryProcessor()), "hello");
-            var systemActors = new SystemActors(queryProcessor);
+            var domainModels = actorSystem.ActorOf(Props.Create(() => new DomainModels()), "hello");
+            var systemActors = new SystemActors(domainModels);
 
             container.RegisterSingleton<ActorSystem>(actorSystem);
             container.RegisterSingleton<SystemActors>(systemActors);

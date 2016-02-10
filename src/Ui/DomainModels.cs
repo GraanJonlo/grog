@@ -2,9 +2,9 @@ using Akka.Actor;
 
 namespace Ui
 {
-    public class QueryProcessor : ReceiveActor
+    public class DomainModels : ReceiveActor
     {
-        public QueryProcessor()
+        public DomainModels()
         {
             Receive<string>(message => { Sender.Tell("Hello world!"); });
         }

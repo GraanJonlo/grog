@@ -4,11 +4,11 @@ namespace Ui
 {
     public class SystemActors
     {
-        public IActorRef QueryProcessor { get; private set; }
+        public IActorRef DomainModels { get; private set; }
 
-        public SystemActors(IActorRef queryProcessor)
+        public SystemActors(IActorRef domainModels)
         {
-            QueryProcessor = queryProcessor;
+            DomainModels = domainModels;
         }
     }
 }

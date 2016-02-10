@@ -16,7 +16,7 @@ namespace Ui.Controllers
 
         public async Task<ActionResult> Index()
         {
-            ViewBag.Message = await _systemActors.QueryProcessor.Ask<string>("", TimeSpan.FromSeconds(1));
+            ViewBag.Message = await _systemActors.DomainModels.Ask<string>("", TimeSpan.FromSeconds(1));
 
             return View();
         }
