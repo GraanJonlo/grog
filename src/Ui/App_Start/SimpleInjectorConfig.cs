@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Akka.Actor;
+using Core.Actors;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 
@@ -39,9 +40,6 @@ namespace Ui
 
         private static void RegisterTypes(Container container)
         {
-            // Register your types, for instance:
-            //container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
-
             var actorSystem = ActorSystem.Create("grog");
             var domainModels = actorSystem.ActorOf(Props.Create(() => new DomainModels()), "hello");
             var systemActors = new SystemActors(domainModels);

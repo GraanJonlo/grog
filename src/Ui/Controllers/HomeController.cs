@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Akka.Actor;
+using Core.Actors;
+using Core.Messages;
 
 namespace Ui.Controllers
 {
@@ -16,7 +18,7 @@ namespace Ui.Controllers
 
         public async Task<ActionResult> Index()
         {
-            ViewBag.Message = await _systemActors.DomainModels.Ask<string>("", TimeSpan.FromSeconds(1));
+            ViewBag.Posts = await _systemActors.DomainModels.Ask<string>(new GetPosts(), TimeSpan.FromSeconds(1));
 
             return View();
         }

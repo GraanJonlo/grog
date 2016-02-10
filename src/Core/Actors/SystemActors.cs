@@ -1,6 +1,6 @@
-using Akka.Actor;
+﻿using Akka.Actor;
 
-namespace Ui
+namespace Core.Actors
 {
     public class SystemActors
     {
