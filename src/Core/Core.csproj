@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\DomainModels.cs" />
+    <Compile Include="Actors\Posts.cs" />
     <Compile Include="Actors\SystemActors.cs" />
     <Compile Include="Author.cs" />
     <Compile Include="Messages\GetPosts.cs" />

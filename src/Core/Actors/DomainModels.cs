@@ -5,9 +5,11 @@ namespace Core.Actors
 {
     public class DomainModels : ReceiveActor
     {
+        private IActorRef _posts = Context.ActorOf<Posts>();
+
         public DomainModels()
         {
-            Receive<GetPosts>(message => { Sender.Tell("Hello world!"); });
+            Receive<GetPosts>(message => { _posts.Forward(message); });
         }
     }
 }
