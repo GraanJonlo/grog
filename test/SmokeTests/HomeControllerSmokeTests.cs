@@ -23,7 +23,7 @@ namespace SmokeTests
 
             var result = sut.Index().Result as ViewResult;
 
-            Assert.Equal("Hello world!", result.ViewBag.Posts);
+            Assert.Equal("Hello World!", result.ViewBag.Posts[0].Title);
         }
 
         [Fact]

@@ -1,5 +1,8 @@
-﻿using Akka.Actor;
+﻿using System;
+using System.Collections.Generic;
+using Akka.Actor;
 using Core.Messages;
+using NodaTime;
 
 namespace Core.Actors
 {
@@ -7,7 +10,19 @@ namespace Core.Actors
     {
         public Posts()
         {
-            Receive<GetPosts>(message => { Sender.Tell("Hello world!"); });
+            var posts = new List<Post>(1)
+                        {
+                            new Post()
+                            {
+                                Author = new Author {Image = "", Name = "Andy", Slug = "andy"},
+                                Content = "Hello world!",
+                                PublishedTime = Instant.FromDateTimeUtc(DateTime.UtcNow),
+                                Slug = "hello-world",
+                                Tags = new List<Tag>(0),
+                                Title = "Hello World!"
+                            }
+                        };
+            Receive<GetPosts>(message => { Sender.Tell(posts); });
         }
     }
 }

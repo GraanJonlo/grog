@@ -1,4 +1,5 @@
-﻿@section head
+﻿@using Core
+@section head
 {
     <title>@ViewBag.Title</title>
 }
@@ -12,6 +13,42 @@
 }
 
 <div class="posts">
+    @foreach (Post post in ViewBag.Posts)
+    {
+        <section class="post">
+            <header class="post-header">
+                @if (post.Author != null)
+                {
+                    <img class="post-avatar" alt="@post.Author.Name" height="48" width="48" src="@post.Author.Image" />
+                }
+                <h2 class="post-title">
+                    <a href="/posts/@post.Slug">@post.Title</a>
+                </h2>
+                <p class="post-meta">
+                    @if (post.Author != null)
+                    {
+                        <text>
+                            By <a class="post-author" href="/users/@post.Author.Slug">@post.Author.Name</a> - 
+                        </text>
+                    }
+
+                    @post.PublishedTime.ToString()
+
+                    @if (post.Tags.Any())
+                    {
+                        <text> - </text>
+                        foreach (Tag tag in post.Tags)
+                        {
+                             <a class="post-category" href="/tags/@tag.Name">@tag.Name</a>
+                        }
+                    }
+                </p>
+            </header>
+            <div class="post-description">
+                <p>@post.Content</p>
+            </div>
+        </section>
+    }
 </div>
 <div class="footer">
     <div class="pure-menu pure-menu-horizontal">
