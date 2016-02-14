@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\Core.csproj">
+      <Project>{92679514-2E98-42E7-B5D9-C27A583FD074}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ui\Ui.csproj">
       <Project>{ad5242be-49e7-4fc6-8e34-169bfebf1a24}</Project>
       <Name>Ui</Name>

@@ -1,7 +1,10 @@
 ﻿@using Core
+
+@model List<Post>
+
 @section head
 {
-    <title>@ViewBag.Title</title>
+    <title>Andy's Blog</title>
 }
 
 @section sidebar
@@ -13,7 +16,7 @@
 }
 
 <div class="posts">
-    @foreach (Post post in ViewBag.Posts)
+    @foreach (Post post in Model)
     {
         <section class="post">
             <header class="post-header">
@@ -27,16 +30,14 @@
                 <p class="post-meta">
                     @if (post.Author != null)
                     {
-                        <text>
-                            By <a class="post-author" href="/users/@post.Author.Slug">@post.Author.Name</a> - 
-                        </text>
+                        @: By <a class="post-author" href="/users/@post.Author.Slug">@post.Author.Name</a> - 
                     }
 
                     @post.PublishedTime.ToString()
 
                     @if (post.Tags.Any())
                     {
-                        <text> - </text>
+                        @: - 
                         foreach (Tag tag in post.Tags)
                         {
                              <a class="post-category" href="/tags/@tag.Name">@tag.Name</a>

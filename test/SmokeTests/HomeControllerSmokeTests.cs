@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using Core;
 using SimpleInjector;
 using Ui;
 using Ui.Controllers;
@@ -23,7 +25,7 @@ namespace SmokeTests
 
             var result = sut.Index().Result as ViewResult;
 
-            Assert.Equal("Hello World!", result.ViewBag.Posts[0].Title);
+            Assert.Equal("Hello World!", ((List<Post>)result.Model)[0].Title);
         }
 
         [Fact]
