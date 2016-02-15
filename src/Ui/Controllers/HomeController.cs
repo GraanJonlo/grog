@@ -20,7 +20,7 @@ namespace Ui.Controllers
 
         public async Task<ActionResult> Index()
         {
-            List<Post> posts =await _systemActors.DomainModels.Ask<List<Post>>(new GetPosts(), TimeSpan.FromSeconds(1));
+            List<Post> posts = await _systemActors.DomainModels.Ask<List<Post>>(new GetPosts(), TimeSpan.FromSeconds(1));
 
             return View(posts);
         }

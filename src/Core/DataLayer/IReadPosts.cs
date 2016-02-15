@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Akka.Actor;
-using Core.DataLayer;
 using Core.Messages;
 using NodaTime;
 
-namespace Core.Actors
+namespace Core.DataLayer
 {
-    public class Posts : ReceiveActor
+    public interface IReadPosts
     {
-        private readonly IReadPosts _readModel = new FakePostsReadModel();
+        IEnumerable<Post> GetPosts(GetPosts msg);
+    }
 
-        public Posts()
+    public class FakePostsReadModel : IReadPosts
+    {
+        public IEnumerable<Post> GetPosts(GetPosts msg)
         {
             var posts = new List<Post>(1)
                         {
@@ -19,13 +20,14 @@ namespace Core.Actors
                             {
                                 Author = new Author {Image = "", Name = "Andy", Slug = "andy"},
                                 Content = "Hello world!",
-                                PublishedTime = Instant.FromDateTimeUtc(DateTime.UtcNow),
+                                PublishedTime = Instant.FromDateTimeUtc(new DateTime(2016, 2, 19, 16, 21, 0, DateTimeKind.Utc)),
                                 Slug = "hello-world",
                                 Tags = new List<Tag>(0),
                                 Title = "Hello World!"
                             }
                         };
-            Receive<GetPosts>(message => { Sender.Tell(_readModel.GetPosts(message)); });
+
+            return posts;
         }
     }
 }

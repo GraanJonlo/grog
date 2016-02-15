@@ -55,6 +55,7 @@
     <Compile Include="Actors\Posts.cs" />
     <Compile Include="Actors\SystemActors.cs" />
     <Compile Include="Author.cs" />
+    <Compile Include="DataLayer\IReadPosts.cs" />
     <Compile Include="Messages\GetPosts.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
