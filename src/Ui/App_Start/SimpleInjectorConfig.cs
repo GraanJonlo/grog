@@ -14,10 +14,8 @@ namespace Ui
 
             RegisterTypes(container);
 
-            // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
-            // This is an extension method from the integration package as well.
             container.RegisterMvcIntegratedFilterProvider();
 
             container.Verify();
@@ -29,11 +27,9 @@ namespace Ui
 
             RegisterTypes(container);
 
-            // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
-            // This is an extension method from the integration package as well.
-            // container.RegisterMvcIntegratedFilterProvider();
+            container.Options.AllowOverridingRegistrations = true;
 
             container.Verify();
         }

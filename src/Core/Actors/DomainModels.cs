@@ -5,10 +5,12 @@ namespace Core.Actors
 {
     public class DomainModels : ReceiveActor
     {
-        private IActorRef _posts = Context.ActorOf<Posts>();
+        private readonly IActorRef _posts;
 
         public DomainModels()
         {
+            _posts = Context.ActorOf<Posts>();
+
             Receive<GetPosts>(message => { _posts.Forward(message); });
         }
     }
