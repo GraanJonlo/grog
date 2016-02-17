@@ -1,30 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Akka.Actor;
+﻿using Akka.Actor;
 using Core.DataLayer;
 using Core.Messages;
-using NodaTime;
+using SimpleInjector;
 
 namespace Core.Actors
 {
     public class Posts : ReceiveActor
     {
-        private readonly IReadPosts _readModel = new FakePostsReadModel();
+        private readonly IReadPosts _readModel;
 
-        public Posts()
+        public Posts(Container container)
         {
-            var posts = new List<Post>(1)
-                        {
-                            new Post()
-                            {
-                                Author = new Author {Image = "", Name = "Andy", Slug = "andy"},
-                                Content = "Hello world!",
-                                PublishedTime = Instant.FromDateTimeUtc(DateTime.UtcNow),
-                                Slug = "hello-world",
-                                Tags = new List<Tag>(0),
-                                Title = "Hello World!"
-                            }
-                        };
+            _readModel = container.GetInstance<IReadPosts>();
+
             Receive<GetPosts>(message => { Sender.Tell(_readModel.GetPosts(message)); });
         }
     }
